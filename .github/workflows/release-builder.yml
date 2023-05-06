@@ -32,6 +32,28 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    - name: Build dependencies
+    - name: Install tools
       run: |
-          echo $zlibArchive
+          sudo apt update && sudo apt install tar xz-utils curl cmake make autoconf libtool -y
+
+    - name: Get latest musl toolchain
+      run: |
+          mkdir dependencies
+          cd dependencies
+          curl -s -L https://musl.cc/x86_64-linux-musl-native.tgz | tar zx
+
+    - name: Build zlib
+      run: |
+          echo -n "Download and Extract zlib... "
+          curl -s -L $zlibArchive | tar --xz -x
+
+          echo -n "Configure zlib... "
+          cd zlib*
+          ./configure --prefix=$TOOLCHAIN --static
+
+          echo -n "Build zlib... "
+          make -j$(nproc)
+
+          echo -n "Install zlib... "
+          make install 
+          cd ..
