@@ -146,7 +146,7 @@ jobs:
 
 
   publish:
-    needs: [job1, job2]
+    needs: [builder-x86]
     runs-on: ubuntu-latest
 
     steps:
