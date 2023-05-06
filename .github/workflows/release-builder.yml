@@ -34,7 +34,7 @@ jobs:
     
     - name: Install tools
       run: |
-          sudo apt update && sudo apt install tar xz-utils curl cmake make autoconf libtool -y
+          sudo apt update && sudo apt install tar xz-utils curl cmake make build-essential autoconf libtool -y
 
     - name: Get latest musl toolchain
       run: |
@@ -49,7 +49,7 @@ jobs:
 
           echo -n "Configure zlib... "
           cd zlib*
-          ./configure --prefix=$TOOLCHAIN --static
+          ./configure --host=x86_64-linux-musl --prefix=$TOOLCHAIN --static
 
           echo -n "Build zlib... "
           make -j$(nproc)
