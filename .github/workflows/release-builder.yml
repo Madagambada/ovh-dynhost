@@ -49,7 +49,7 @@ jobs:
 
           echo -n "Configure zlib... "
           cd zlib*
-          ./configure --host=x86_64-linux-musl --prefix=$TOOLCHAIN --static
+          ./configure --prefix=$TOOLCHAIN --static
 
           echo -n "Build zlib... "
           make -j$(nproc)
